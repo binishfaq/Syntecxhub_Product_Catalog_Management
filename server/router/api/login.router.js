@@ -43,7 +43,15 @@ return res.status(401).json({msg: 'Invalid Credentials'})
     }
     jwt.sign(payload, process.env.JWT_SECRET,{expiresIn: 37000}, (err, token)=>{
         if(err) throw err;
-        res.json({token})
+        res.json({
+  token,
+  user: {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    role: user.role,
+  },
+});
     })
 } catch (err) {
      console.error(err.message);
