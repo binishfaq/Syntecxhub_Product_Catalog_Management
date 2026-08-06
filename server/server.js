@@ -11,7 +11,8 @@ DBconnect();
 app.use('/api/register', require('./router/api/register.router'));
 app.use('/api/login', require('./router/api/login.router'));
 app.use('/api/category', require('./router/api/category.router'));
-app.use('/api/products', require('./router/api/product.router'))
+app.use('/api/products', require('./router/api/product.router'));
+app.use('/api/dashboard', require('./router/api/dashboard.router'));
 
 app.listen(PORT, ()=>{
     console.log(`Server is running on http://localhost:${PORT}`)

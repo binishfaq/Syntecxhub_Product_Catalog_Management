@@ -77,7 +77,7 @@ check('stock', "Stock must be 0 or greater").isInt({min: 0}),
 });
 
 
-router.get('/stats', async(req, res)=>{
+router.get('/dashboardstats', async(req, res)=>{
     try{
         const stats = await Product.aggregate([
             {

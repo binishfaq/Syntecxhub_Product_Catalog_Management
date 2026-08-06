@@ -1,11 +1,18 @@
-import React from 'react'
+import Hero from "../Components/Dashboard/Hero";
+import Sidebar from "../Components/UI/Sidebar";
+import StateCard from "../Components/Dashboard/StateCards"
+import Products from "../Components/Dashboard/Products"
 
-const Dashboard = () => {
+export default function Dashboard() {
   return (
-    <div>
-      sdjpodjpo
-    </div>
-  )
-}
+    <div className="flex">
+      <Sidebar />
 
-export default Dashboard
+      <div className="flex-1 p-6">
+        <Hero />
+        <StateCard />
+        <Products />
+      </div>
+    </div>
+  );
+}

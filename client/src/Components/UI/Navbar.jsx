@@ -25,6 +25,7 @@ export default function Navbar() {
     { name: "Categories", to: "/categories" },
     { name: "Add Product", to: "/products/add" },
     { name: "Add Category", to: "/categories/add" },
+    { name: "Dashboard", to: "/dashboard" }
   ];
 
   const navLinks = !token
