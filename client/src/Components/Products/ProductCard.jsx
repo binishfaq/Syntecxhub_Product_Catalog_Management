@@ -2,25 +2,36 @@ import { Link } from "react-router-dom";
 import { FaEye, FaTag, FaBuilding } from "react-icons/fa";
 
 export default function ProductCard({ product }) {
+  // Build backend image URL
+  const imageUrl = product.image
+    ? `http://localhost:5000/${product.image
+        .replace(/\\/g, "/")
+        .replace(/^\/+/, "")}`
+    : "https://via.placeholder.com/500x350?text=No+Image";
+
   return (
-    <div className="overflow-hidden rounded-2xl bg-white shadow-md transition duration-300 hover:-translate-y-2 hover:shadow-xl">
+    <div className="group overflow-hidden rounded-xl bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+
       {/* Product Image */}
-      <div className="h-56 overflow-hidden bg-slate-100">
+      <div className="h-64 overflow-hidden bg-gray-100">
         <img
-          src={
-            product.image ||
-            "https://via.placeholder.com/500x350?text=No+Image"
-          }
+          src={imageUrl}
           alt={product.name}
-          className="h-full w-full object-cover transition duration-300 hover:scale-110"
+          className="h-full w-full object-cover transition duration-300 group-hover:scale-110"
+          onError={(e) => {
+            console.log("Image failed to load:", imageUrl);
+            e.currentTarget.src =
+              "https://via.placeholder.com/500x350?text=No+Image";
+          }}
         />
       </div>
 
       {/* Content */}
       <div className="p-5">
+
         {/* Category */}
         <span className="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-600">
-          {product.category?.name}
+          {product.category?.name || "Uncategorized"}
         </span>
 
         {/* Product Name */}
@@ -34,15 +45,17 @@ export default function ProductCard({ product }) {
         </p>
 
         {/* Brand */}
-        <div className="mt-4 flex items-center gap-2 text-sm text-gray-600">
-          <FaBuilding className="text-blue-600" />
-          {product.brand}
-        </div>
+        {product.brand && (
+          <div className="mt-4 flex items-center gap-2 text-sm text-gray-600">
+            <FaBuilding className="text-blue-600" />
+            {product.brand}
+          </div>
+        )}
 
         {/* Stock */}
         <div className="mt-2 flex items-center gap-2 text-sm text-gray-600">
           <FaTag className="text-green-600" />
-          Stock : {product.stock}
+          Stock: {product.stock}
         </div>
 
         {/* Price */}
@@ -59,6 +72,7 @@ export default function ProductCard({ product }) {
             View
           </Link>
         </div>
+
       </div>
     </div>
   );

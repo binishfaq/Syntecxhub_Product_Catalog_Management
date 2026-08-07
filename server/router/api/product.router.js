@@ -5,6 +5,7 @@ const { check, validationResult } = require('express-validator');
 const router = express.Router();
 const auth = require("../../middleware/auth");
 const admin = require("../../middleware/admin.auth");
+const upload = require("../../middleware/upload");
 
 router.get('/', async (req, res) => {
     try {
@@ -30,7 +31,7 @@ router.get('/', async (req, res) => {
     }
 }); 
 
-router.post('/', [auth, admin,
+router.post('/', [auth, admin, upload.single('image'),
     check('name', "Name is Required").not().isEmpty(),
     check('description', "Description is Required").not().isEmpty(),
 check('category', "Category is Required").not().isEmpty(),
@@ -41,7 +42,8 @@ check('stock', "Stock must be 0 or greater").isInt({min: 0}),
     if (!errors.isEmpty()) {
         return res.status(400).json({ success: false, errors: errors.array() });
     }
-    const { name, description, price, brand, stock, category } = req.body;
+    const { name, description, price, brand, stock, category} = req.body;
+    const image =req.file ? `/uploads/products/${req.file.filename}` : "";
     try {
         const existingCategory = await Category.findById(category);
         if(!existingCategory){
@@ -55,7 +57,7 @@ check('stock', "Stock must be 0 or greater").isInt({min: 0}),
             return res.status(400).json({ success: false, msg: "product  already exists" })
         };
         const newProduct = new Product({
-            name, description,  price, brand, stock, category, createdBy: req.user.id
+            name, description,  price, brand, stock, category,image, createdBy: req.user.id
         });
         await newProduct.save();
         const savedProduct = await Product.findById(newProduct._id)

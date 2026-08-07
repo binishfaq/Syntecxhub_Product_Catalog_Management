@@ -35,6 +35,10 @@ const ProductSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
     },
+    image:{
+      type: String,
+      default: ""
+    },
   },
   {
     timestamps: true,

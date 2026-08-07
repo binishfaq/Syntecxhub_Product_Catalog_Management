@@ -99,36 +99,6 @@ export default function AddCategory() {
           />
         </div>
 
-        {/* Image */}
-        <div>
-          <label className="mb-2 flex items-center gap-2 font-medium">
-            <FaImage className="text-blue-600" />
-            Category Image
-          </label>
-
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImage}
-            className="w-full rounded-lg border border-gray-300 p-3"
-          />
-        </div>
-
-        {/* Preview */}
-        {preview && (
-          <div>
-            <h3 className="mb-3 font-semibold">
-              Image Preview
-            </h3>
-
-            <img
-              src={preview}
-              alt="Preview"
-              className="h-40 rounded-lg border object-cover"
-            />
-          </div>
-        )}
-
         {/* Buttons */}
         <div className="flex gap-4">
 
