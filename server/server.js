@@ -16,6 +16,10 @@ app.use('/api/category', require('./router/api/category.router'));
 app.use('/api/products', require('./router/api/product.router'));
 app.use('/api/dashboard', require('./router/api/dashboard.router'));
 
-app.listen(PORT, ()=>{
-    console.log(`Server is running on http://localhost:${PORT}`)
-})
+if (process.env.NODE_ENV !== "production") {
+    app.listen(PORT, () => {
+        console.log(`Server is running on http://localhost:${PORT}`);
+    });
+}
+
+module.exports = app;
